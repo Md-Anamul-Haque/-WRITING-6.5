@@ -1,0 +1,558 @@
+<html lang="en-us">
+<head>
+   <script src="https://kit.fontawesome.com/f03829a931.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="all.min.css">
+    <title>no-crash-soft | handwriting</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+<link rel="stylesheet" href="/storage/emulated/0/1 html/advance code/icon/css/all.min.css">
+
+<!-- font style link-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@200&display=swap" rel="stylesheet">
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style type="text/css">
+*,*:before,*:after{box-sizing:border-box; margin:0; padding:0;}
+.out-result{
+position:relative;
+margin:0;
+padding:0;
+width:100%;
+height:100px;
+background:#ffffff;
+box-shadow: 7px 5px 7px black;
+text-align:center;
+border:10px solid #737bc6;
+border-radius:20px;
+}
+#result{
+display: block;
+margin:0 auto;
+width: 200px;
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+z-index:-1;
+font-size:4rem;
+}
+.sent-body{
+width:100%;
+position:relative;
+}
+.sent-body span{
+z-index:3;
+background:#ffe9ff;
+padding:2px;
+position:absolute;
+right:10px;
+top:-20;
+border-radius:20px;
+}
+#canvas{
+text-shadow:2px 3px 5px red;
+box-shadow:inset 0px -2px 5px black;
+height:350px;
+}
+.text-sent-btn{
+z-index:5;
+box-shadow:inset lightblue -2px -10px 5px;
+border-radius:20px;
+color:#4869FE;
+font-family:Impact;
+border-radius:7px;
+border:none;
+outline:none;
+padding:5px;
+}
+.text-sent-btn:focus{
+/*background:linear-gradient(to right,#CDC5BD,#697989,#2960EF);*/
+background:#fff;
+filter:url('#wave');
+}
+.btn-all{
+display:flex;
+background:#E7E7E7;
+}
+.delet,.undo,.redo,.text-sent-btn-md{
+margin:7px;
+color:white;
+text-shadow:2px 2px 3px #222;
+padding:10px;
+border:none;
+text-shadow: indet 2px 2px 5px white;
+background:none;
+}
+.delet{margin-left:15px;}
+.undo-reacat{
+color:#4869FE;
+transition:1s;
+transform: rotate(-360deg)
+}
+.redo-reacat{
+color:#4869FE;
+transition:1s;
+transform: rotate(360deg)
+}
+.delet-reacat{
+color:#F68713;
+transition:1s;
+}
+.main-body{
+z-index:2;
+}
+.dro-languag{
+position:absolute;
+background:#000;
+color:#fff;
+top:5px;
+padding:0 5px 0 5px;
+box-shadow:2px 3px 9px 1px #555;
+font-family:serif;
+border-radius:2px;
+z-index:2;
+}
+
+.rs{
+background:#000;
+color:#fff;
+padding:0 5px 0 5px;
+box-shadow:inset -2px -3px 9px 1px white;
+font-family:serif;
+position:absolute;
+left:50%; top:-10px; 
+transform:translateX(-50%);
+font-family:fantasy;
+border-radius:2px;
+}
+.footer{
+position:absolute;
+left:50%;
+bottom:0;
+transform:translateX(-50%);
+background:#000;
+color:#fff;
+width:100%;
+mon-height:60px;
+text-align:center;
+padding:5px 0 0 0;
+}
+.footer span p{
+}
+.text-sent-btn-md{display:none;}
+
+
+/*loadeing poient start hear*/
+
+.loader{
+position:absolute;
+left:45%; top:20%;
+  border: 10px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 10px solid green;
+  border-bottom: 10px solid blue;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+transform:translate(-50% ,-50%);
+display:none;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/*loadeing poient end hear*/
+
+
+/*windo*/
+#sugges-windo{overflow:scroll;
+width:80px; height:325px;
+position:absolute; 
+background:none;
+z-index:5;
+top:24px;
+/*box-shadow:inset 1px 45px 35px #fff;*/
+     }
+/* /* width * ::-webkit-scrollbar {width: 10px;} 
+ /* Track * ::-webkit-scrollbar-track{ background: #333;  box-shadow: inset -3px 0px 5px white; }
+ /* Handle * ::-webkit-scrollbar-thumb{background: #999eef; } 
+ /* Handle on hover * ::-webkit-scrollbar-thumb:hover {background: #555;  }
+ */
+ 
+#all-menu-letter-hear-A-z{
+color:teal;
+
+margin:5px 0 0 10px;
+box-shadow:5px 5px 2px 1px #333;
+border-radius:30%;
+outline:none;
+border:none;
+}
+
+.lowercase{
+color:white;
+background:#40808b;
+
+margin:5px 0 0 10px;
+box-shadow:maroon 2px 5px 5px 2px;
+border-radius:20%;
+outline:none;
+border:none;
+}
+/*.lowercase:focus{
+color:fuchsia;
+background:lime;
+}*/
+
+#sugges-letter{ opacity:0.3;
+ color:#888; position:absolute;
+  left:55%; top:50%; transform:translate(-50% , -50%); 
+font-family: 'Urbanist', sans-serif;
+font-size:10rem;}
+
+.mybtn{ 
+width:85%; margin:2px auto;
+ font-size:2.5em;display:block;
+background:#FFFAC0;
+font-family: 'Urbanist', sans-serif;
+color:#40820b;
+border:none;
+border-left:solid 5px red;
+border-radius:10px 50px 100px 10px;
+ }
+
+.mybtn:focus{
+color:black;
+font-family: 'Urbanist', sans-serif;
+border-color:white;
+border-radius:10px 100px 100px 10px;
+border-right:1px solid #000;
+/*background-image:linear-gradient(to right,#F9E8D4,#F2F7DC,#E6D4A9);*/
+background:none;
+}
+.trft{
+text-transform:lowercase;
+}
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (min-width: 600px) {
+.body{
+position:absolute;
+max-width:600px;
+left:50%;
+top:40%;
+transform:translate(-50% , -50%);
+background:#fff;
+/*box-shadow: 0.5rem 0.5rem black, -0.5rem -0.5rem #ccc;
+*/
+border: 5px solid hsl(0, 0%, 40%);
+/* #3 */
+  outline: 5px solid hsl(0, 0%, 60%);
+/* #4 AND INFINITY!!! (CSS3 only) */
+  box-shadow:
+      0 0 0 15px hsl(0, 0%, 80%),
+      0 0 0 25px hsl(0, 0%, 90%);
+}
+body{background:#ADD9E6;}
+.sent-body span{
+top:20;
+}
+.out-result{box-shadow:inset 7px 7px 10px black;}
+.text-sent-btn-md{
+display:list-item;
+transform: translate(-50%,-50%);
+transform:rotateY(180deg);
+background:none;
+float:right;
+ position:absolute;
+ right:10px;
+}
+    .text-sent-btn-md:focus{
+    filter:url('#wave');
+        }
+#sugges-windo{
+width:100px;
+}
+.mybtn{font-size:2.8rem;}
+}
+
+</style>
+</head>
+<body style="height: 100vh; overflow:hidden;">
+    <div class="body" >
+        <h2 id="cid"></h2>
+        <div class="out-result" > 
+            <span class="rs" >result:</span>
+            <span>
+            
+            <div class="loader" id="loader"></div>
+            <span id="result"></span>
+            
+            </span>
+        </div>
+    <div class="main-body" >
+
+<!--button start hear -->
+        
+        <form style="margin:10px; display:none;">
+             Language:<br>
+             <select id="language">
+         
+             <option value="en" selected="selected">English</option>
+             <option value="bn">Bangla</option>
+         
+             </select>
+         </form>
+        <div class="btn-all">
+            <button class="undo" type="button" onclick="canvas.undo()"><i class="fas fa-undo fa-2x"></i></button>
+            <button class="redo"  type="button" onclick="canvas.redo()"><i class="fas fa-redo fa-2x"></i></button>
+            <span><br/>PenSize<br/><input type="range" id="penSize" min="3" max="30" value="3"></span>
+            <button class="delet" type="button" onclick="canvas.erase(); resultRefresh();">><i class="fas fa-trash-alt fa-2x"></i></button>
+            <span>
+            
+            <button class="text-sent-btn-md"  style="margin:10px;"  type="button" onclick="resultSend();"><i class="fas fa-paper-plane fa-2x"></i></button>
+            
+            </span>
+        </div> 
+    
+<!--button end hear -->
+<!--canvas start here-->
+<div style="position:relative;" >
+     
+         <h2 id="sugges-letter" ></h2> 
+       
+    <div id="sugges-windo" >
+        <button class="mybtn A">A</button>
+        <button class="mybtn B">B</button>
+        <button class="mybtn C">C</button>
+        <button class="mybtn D">D</button>
+        <button class="mybtn E">E</button>
+        <button class="mybtn F">F</button>
+        <button class="mybtn G">G</button>
+        <button class="mybtn H">H</button>
+        <button class="mybtn I">I</button>
+        <button class="mybtn J">J</button>
+        <button class="mybtn K">K</button>
+        <button class="mybtn L">L</button>
+        <button class="mybtn M">M</button>
+        <button class="mybtn N">N</button>
+        <button class="mybtn O">O</button>
+        <button class="mybtn P">P</button>
+        <button class="mybtn Q">Q</button>
+        <button class="mybtn R">R</button>
+        <button class="mybtn S">S</button>
+        <button class="mybtn T">T</button>
+        <button class="mybtn U">U</button>
+        <button class="mybtn V">V</button>
+        <button class="mybtn W">W</button>
+        <button class="mybtn X">X</button>
+        <button class="mybtn Y">Y</button>
+        <button class="mybtn Z">Z</button>
+    </div>
+ 
+        <p class="dro-languag" >English letter writing now a case in(A-z)</p>
+        <canvas id="canvas" width="600" height="350" style="border: 2px solid; cursor: crosshair; position:relative;"></canvas>
+    </div>
+<!--canvas start here-->
+         <div class="sent-body treat-wrapper" >
+             <button  onclick="lettermenu()" id="all-menu-letter-hear-A-z" ><i class="fas fa-compass fa-3x"></i></button>
+             <button id="lowercase" onclick="lowc()" class="lowercase" >Tolowercase</button>
+             <span><button class="text-sent-btn treat-button"  style="margin:10px;"  type="button" onclick="resultSend();"><i class="fas fa-paper-plane fa-5x"></i></button></span>
+         </div>
+<svg style="width:0; height:0;">
+     <defs>
+       <filter id="wave">
+             <feTurbulence type='fractalNoise' baseFrequency='0.03 0.08' numOctaves='1' result='warp' />
+             <feDisplacementMap xChannelSelector= 'R' yChannelSelector='G' scale='30' in='SourceGraphic' in2='warpOffset' />
+        </filter>
+      </defs>
+  </svg>
+</div><div>
+             
+
+<script type="text/javascript" src="handwriting.js"></script>
+             
+ <script type="text/javascript" defer="">
+             var canvas = new handwriting.Canvas(document.getElementById('canvas'), 3);
+             var width = document.getElementById("cid").clientWidth;
+             canvas.cxt.canvas.width  = width<600? width:600;
+             canvas.cxt.canvas.height = width<350? width:350;
+canvas.setCallBack(function(data, err) {
+             if (err) throw err;
+             else document.getElementById("result").innerHTML = data[0];
+             console.log(data);
+             
+             var str=data[0];  
+             // var silent =   new Audio('ms_1000.mp3');
+for(var i=0; i<str.length;i++){
+             var audio = new Audio(str.charAt(i).toUpperCase() + '.wav');
+             audio.play(); 
+             // silent.play();       
+ };
+             
+ });
+             
+             canvas.set_Undo_Redo(true, true);
+             var penSize = document.getElementById("penSize");
+   penSize.addEventListener("mousemove", function() {
+             document.getElementById("lineWidth").innerHTML = penSize.value;
+  });
+  penSize.addEventListener("change", function(){
+             canvas.setLineWidth(penSize.value);
+  });
+             
+             //__________________________________
+             
+             
+   function resultRefresh(){
+             document.getElementById("result").innerHTML = '';
+   };	
+             
+ function resultSend(){
+             var e = document.getElementById('language');
+             canvas.setOptions({language: e.options[e.selectedIndex].value});
+             canvas.recognize();
+             lod()
+             //loding start hear
+  function lod(){
+             var p2 = document.querySelector("#result").innerText; 
+       if(p2 ==""){
+             document.querySelector(".loader").style.display="inline"
+        }
+       if(p2 !=""){
+             document.querySelector(".loader").style.display="none";
+       }
+             //loding start hear
+             requestAnimationFrame(lod);
+   }
+};
+             
+             
+             /*svg Frequency start hear*/
+             const buttons = document.querySelectorAll('button');
+             const turbulence = document.querySelector('feTurbulence');
+             let verticalFrequency = 0.00001;
+             turbulence.setAttribute('baseFrequency', verticalFrequency + '0.00001');
+             const steps = 30;
+             const interval =20;
+   buttons.forEach(function(button){
+   button.addEventListener('click', function(){
+             verticalFrequency = .00001;
+  for(i=0; i<steps; i++) {
+  setTimeout(function(){
+             verticalFrequency += 0.009;
+             turbulence.setAttribute('baseFrequency', verticalFrequency + '0.00001');
+  }, i * interval);
+  }
+  setTimeout(function(){
+             verticalFrequency = 0.0001;
+             turbulence.setAttribute('baseFrequency', verticalFrequency + '0.00001');
+ }, steps * interval);
+ });
+ });
+             /*svg Frequency end hear*/
+             //ANAMUL STYLE 
+ document.querySelector(".delet").addEventListener("click", function(){
+             const  sb=document.querySelector(".delet");
+             sb.classList.add("delet-reacat");
+  setTimeout(function(){
+             sb.classList.remove("delet-reacat");
+ },600);
+ });
+document.querySelector(".undo").addEventListener("click", function(){
+             const  sb=document.querySelector(".undo");
+             sb.classList.add("undo-reacat");
+setTimeout(function(){
+             sb.classList.remove("undo-reacat");
+},800);
+});
+document.querySelector(".redo").addEventListener("click", function(){
+             const  sb=document.querySelector(".redo");
+             sb.classList.add("redo-reacat");
+setTimeout(function(){
+             sb.classList.remove("redo-reacat");
+ },800);
+});
+             
+             //all letter menu start hear
+             document.getElementById("sugges-windo").style.display = "none";
+             var lowercase= document.getElementById("lowercase");
+             lowercase.style.display="none";
+             function lettermenu() {
+
+             var element = document.getElementById("sugges-windo");
+   if (element.style.display === "none") {
+             lowercase.style.display="inline";
+             element.style.display = "inline";
+             document.getElementById("all-menu-letter-hear-A-z").style.background= "#000";
+             document.getElementById("all-menu-letter-hear-A-z").style.color= "#fff";
+   }
+   else{
+             element.style.display = "none";
+             lowercase.style.display="none";
+             document.getElementById("all-menu-letter-hear-A-z").style.background= "#fff";
+             document.getElementById("all-menu-letter-hear-A-z").style.color= "#A29168";
+   }
+             
+             }
+             //all letter menu end hear
+  for(var i=0; i<26; i++){
+  document.querySelectorAll(".mybtn")[i].addEventListener("click", function(){
+             var tex = this.innerHTML; 
+             document.querySelector("#sugges-letter").innerHTML=tex;
+  });
+ }
+//__________________    
+    
+    let count=2;
+function lowc(){
+for(let a=0;a<26;a++){
+var element = document.querySelectorAll(".mybtn,#sugges-letter")[a];
+ element.classList.toggle("trft");
+}
+    count+=1;
+    var cassLetter = count%2;
+    var intext= document.getElementById("lowercase");
+    
+if(cassLetter==1){
+     intext.innerHTML="ToUpperCase";
+     intext.style.background="#40808b";
+     intext.style.color="lime"
+    }
+else{
+      intext.innerHTML="ToLowerCase";
+      intext.style.background="#40808b";
+      intext.style.color="#fff"
+    }
+    }
+             
+             
+     </script>
+
+     </div>
+  </div>
+      <div class="footer" >
+         <span><p> &copydeveloper by--> No-crash-soft/Nocrashsoft...</p></span>
+      </div>
+ 
+ </body>
+ </html>
+             
+             
